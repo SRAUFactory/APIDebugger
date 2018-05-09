@@ -25,10 +25,10 @@ Invalid value are http(s)~
 ## Run example
 
 ```
-// GET(no request paramters)
+// GET(no request parameters)
 $go run main.go -u 'http://www.yahoo.co.jp'
 
-// GET(no request paramters, has method setting)
+// GET(no request parameters, has method setting)
 $go run main.go -u 'http://www.yahoo.co.jp' -m 'GET'
 
 // POST(has request parameters)
