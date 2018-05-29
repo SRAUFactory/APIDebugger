@@ -16,7 +16,7 @@ var (
 )
 
 func requestHttp(url string, method string, body string, token string) (*http.Response, error) {
-	req, err := http.NewRequest("GET", method, bytes.NewBuffer([]byte(body)))
+	req, err := http.NewRequest(method, url, bytes.NewBuffer([]byte(body)))
 	if err != nil {
 		return nil, err
 	}
