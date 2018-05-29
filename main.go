@@ -28,24 +28,33 @@ func requestHTTP(url string, method string, body string, token string) (*http.Re
 	return client.Do(req)
 }
 
-func main() {
-	flag.Parse()
+func printResponseContent(res *http.Response, err error) {
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	defer res.Body.Close()
+	byteArray, _ := ioutil.ReadAll(res.Body)
+	fmt.Println(string(byteArray))
+}
+
+func printArgs() {
 	fmt.Println("url: ", *argURL)
 	fmt.Println("method: ", *argMethod)
 	fmt.Println("bodyType: ", *argBodyType)
 	fmt.Println("params: ", *argParams)
 	fmt.Println("path: ", *argPath)
 	fmt.Println("token: ", *argToken)
+}
+
+func main() {
+	flag.Parse()
+	printArgs()
 
 	body := *argParams
 	// @ToDo Implement to set body for case of bodyType == 'path'
 
-	resp, err := requestHTTP(*argURL, *argMethod, body, *argToken)
-	if err != nil {
-		fmt.Println(err)
-	}
-
-	defer resp.Body.Close()
-	byteArray, _ := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(byteArray))
+	res, err := requestHTTP(*argURL, *argMethod, body, *argToken)
+	printResponseContent(res, err)
 }
