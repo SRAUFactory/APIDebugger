@@ -9,9 +9,9 @@ import "net/http"
 var (
 	argUrl      = flag.String("u", "", "Invalid value are http(s)~")
 	argMethod   = flag.String("m", "GET", "Invalid value are 'GET', 'POST', 'PUT', 'DELETE', 'HEAD'")
-	argBodyType = flag.String("t", "params", "Invalid value are 'params', 'path'")
-	argParams   = flag.String("p", "", "If 't' is 'params', this parameter is required. Set request parameters")
-	argPath     = flag.String("f", "", "If 't' is 'path', this parameter is required. Set file path to export for request body")
+	argBodyType = flag.String("b", "params", "Invalid value are 'params', 'path'")
+	argParams   = flag.String("p", "", "If 'b' is 'params', this parameter is required. Set request parameters")
+	argPath     = flag.String("f", "", "If 'b' is 'path', this parameter is required. Set file path to export for request body")
 	argToken    = flag.String("t", "", "Set authorization's token")
 )
 
