@@ -15,7 +15,7 @@ var (
 	argToken    = flag.String("t", "", "Set authorization's token")
 )
 
-func requestHttp(url string, method string, body string, token string) (*http.Response, error) {
+func requestHTTP(url string, method string, body string, token string) (*http.Response, error) {
 	req, err := http.NewRequest(method, url, bytes.NewBuffer([]byte(body)))
 	if err != nil {
 		return nil, err
@@ -40,7 +40,7 @@ func main() {
 	body := *argParams
 	// @ToDo Implement to set body for case of bodyType == 'path'
 
-	resp, err := requestHttp(*argURL, *argMethod, body, *argToken)
+	resp, err := requestHTTP(*argURL, *argMethod, body, *argToken)
 	if err != nil {
 		fmt.Println(err)
 	}
