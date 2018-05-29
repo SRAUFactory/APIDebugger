@@ -1,21 +1,51 @@
 package main
 
+import "bytes"
 import "flag"
 import "fmt"
+import "io/ioutil"
+import "net/http"
 
 var (
-	url      = flag.String("u", "", "Invalid value are http(s)~")
-	method   = flag.String("m", "GET", "Invalid value are 'GET', 'POST', 'PUT', 'DELETE', 'HEAD'")
-	bodyType = flag.String("t", "params", "Invalid value are 'params', 'path'")
-	params   = flag.String("p", "", "If 't' is 'params', this parameter is required. Set request parameters")
-	path     = flag.String("f", "", "If 't' is 'path', this parameter is required. Set file path to export for request body")
+	argURL      = flag.String("u", "", "Invalid value are http(s)~")
+	argMethod   = flag.String("m", "GET", "Invalid value are 'GET', 'POST', 'PUT', 'DELETE', 'HEAD'")
+	argBodyType = flag.String("b", "params", "Invalid value are 'params', 'path'")
+	argParams   = flag.String("p", "", "If 'b' is 'params', this parameter is required. Set request parameters")
+	argPath     = flag.String("f", "", "If 'b' is 'path', this parameter is required. Set file path to export for request body")
+	argToken    = flag.String("t", "", "Set authorization's token")
 )
+
+func requestHTTP(url string, method string, body string, token string) (*http.Response, error) {
+	req, err := http.NewRequest(method, url, bytes.NewBuffer([]byte(body)))
+	if err != nil {
+		return nil, err
+	}
+	if token != "" {
+		req.Header.Set("Authorization", "Bearer "+token)
+	}
+
+	client := new(http.Client)
+	return client.Do(req)
+}
 
 func main() {
 	flag.Parse()
-	fmt.Println("url:", *url)
-	fmt.Println("method:", *method)
-	fmt.Println("bodyType:", *bodyType)
-	fmt.Println("params:", *params)
-	fmt.Println("path:", *path)
+	fmt.Println("url: ", *argURL)
+	fmt.Println("method: ", *argMethod)
+	fmt.Println("bodyType: ", *argBodyType)
+	fmt.Println("params: ", *argParams)
+	fmt.Println("path: ", *argPath)
+	fmt.Println("token: ", *argToken)
+
+	body := *argParams
+	// @ToDo Implement to set body for case of bodyType == 'path'
+
+	resp, err := requestHTTP(*argURL, *argMethod, body, *argToken)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	defer resp.Body.Close()
+	byteArray, _ := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(byteArray))
 }
