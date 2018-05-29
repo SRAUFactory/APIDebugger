@@ -4,7 +4,7 @@ This tool uses to debug for API Request.
 ## Usage
 
 ```
-$go run main.go -u 'http://www.yahoo.co.jp' -m 'POST' -b params -p 'test1=value1&test2=value2&test3=value3' 
+$go run main.go -u 'http://test.com' -m 'POST' -b params -p 'test1=value1&test2=value2&test3=value3' 
 ```
 
 ## Options
@@ -28,18 +28,18 @@ $go run main.go -u 'http://www.yahoo.co.jp' -m 'POST' -b params -p 'test1=value1
 
 ```
 // GET(no request parameters)
-$go run main.go -u 'http://www.yahoo.co.jp'
+$go run main.go -u 'http://test.com'
 
 // GET(no request parameters, has method setting)
-$go run main.go -u 'http://www.yahoo.co.jp' -m 'GET'
+$go run main.go -u 'http://test.com' -m 'GET'
 
 // GET(no request parameters, has method & authorization's token setting)
-$go run main.go -u 'http://www.yahoo.co.jp' -m 'GET' -t '******************'
+$go run main.go -u 'http://test.com' -m 'GET' -t '******************'
 
 // POST(has request parameters)
-$go run main.go -u 'http://www.yahoo.co.jp' -m 'POST' -b params -p 'test1=value1&test2=value2&test3=value3'
+$go run main.go -u 'http://test.com' -m 'POST' -b params -p 'test1=value1&test2=value2&test3=value3'
 
 // POST(has request body's file)
-$go run main.go -u 'http://www.yahoo.co.jp' -m 'POST' -b path -p ../json.txt
+$go run main.go -u 'http://test.com' -m 'POST' -b path -p ../json.txt
 ```
 
