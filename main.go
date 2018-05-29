@@ -7,7 +7,7 @@ import "io/ioutil"
 import "net/http"
 
 var (
-	argUrl      = flag.String("u", "", "Invalid value are http(s)~")
+	argURL      = flag.String("u", "", "Invalid value are http(s)~")
 	argMethod   = flag.String("m", "GET", "Invalid value are 'GET', 'POST', 'PUT', 'DELETE', 'HEAD'")
 	argBodyType = flag.String("b", "params", "Invalid value are 'params', 'path'")
 	argParams   = flag.String("p", "", "If 'b' is 'params', this parameter is required. Set request parameters")
@@ -30,7 +30,7 @@ func requestHttp(url string, method string, body string, token string) (*http.Re
 
 func main() {
 	flag.Parse()
-	fmt.Println("url: ", *argUrl)
+	fmt.Println("url: ", *argURL)
 	fmt.Println("method: ", *argMethod)
 	fmt.Println("bodyType: ", *argBodyType)
 	fmt.Println("params: ", *argParams)
@@ -40,7 +40,7 @@ func main() {
 	body := *argParams
 	// @ToDo Implement to set body for case of bodyType == 'path'
 
-	resp, err := requestHttp(*argUrl, *argMethod, body, *argToken)
+	resp, err := requestHttp(*argURL, *argMethod, body, *argToken)
 	if err != nil {
 		fmt.Println(err)
 	}
